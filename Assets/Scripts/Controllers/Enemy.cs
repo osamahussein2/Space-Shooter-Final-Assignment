@@ -3,19 +3,17 @@ using System.Collections;
 
 public class Enemy : MonoBehaviour
 {
-    public GameObject player;
     public GameObject bombPrefab;
 
     public Transform bombSpawnPoint;
 
     private float timer = 0.0f;
-    public float bombSpeed;
 
     private bool hasBombSpawned = false;
 
     private void Start()
     {
-        bombPrefab.transform.position = bombSpawnPoint.transform.position;
+
     }
 
     private void Update()
@@ -27,10 +25,6 @@ public class Enemy : MonoBehaviour
     {
         if (!hasBombSpawned)
         {
-            bombSpeed = 3.0f;
-
-            bombPrefab.transform.position = bombSpawnPoint.transform.position;
-
             Instantiate(bombPrefab);
 
             hasBombSpawned = true;
@@ -38,8 +32,7 @@ public class Enemy : MonoBehaviour
 
         else if (hasBombSpawned)
         {
-            bombPrefab.transform.position += (player.transform.position - transform.position) *
-                bombSpeed * Time.deltaTime;
+            timer += Time.deltaTime;
 
             if (timer > fireDelay)
             {
@@ -47,13 +40,6 @@ public class Enemy : MonoBehaviour
 
                 timer = 0.0f;
             }
-        }
-
-        if (Vector2.Distance(bombPrefab.transform.position, player.transform.position) < 0.3f)
-        {
-            timer += Time.deltaTime;
-
-            Destroy(bombPrefab);
         }
     }
 

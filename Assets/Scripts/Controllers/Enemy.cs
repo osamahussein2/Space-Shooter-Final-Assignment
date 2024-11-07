@@ -137,8 +137,6 @@ public class Enemy : MonoBehaviour
             randomPointDefined = false;
         }
 
-
-
-        transform.position += (randomVector - transform.position) * Time.deltaTime * acceleration;
+        transform.position += (randomVector - transform.position).normalized * acceleration * Time.deltaTime;
     }
 }
